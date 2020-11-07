@@ -3,6 +3,8 @@ const keys = require('../config/keys')
 const jwt = require('jsonwebtoken')
 const bcrypt = require('bcryptjs')
 const User = require('../models/User')
+const errorHandlier = require('../utils/errorHandlier')
+
 
 // логика машрута  log router login
 module.exports.login = async function (req, res){
@@ -61,8 +63,8 @@ module.exports.register = async function (req, res) {
          await user.save()
          res.status(201).json({message: 'пользватель создан ', user})
         }catch(e){
-            // ошибка 
-            console.log('error on register  save',e)
+            // если ошибка то взваем функцию ошибку первий параметр res второй e
+            errorHandlier(res, e)
         }
     }
 }

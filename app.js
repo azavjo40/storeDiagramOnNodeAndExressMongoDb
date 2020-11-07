@@ -3,7 +3,8 @@ const mongoose = require('mongoose')
 const cors = require('cors')
 const morgan = require('morgan') 
 const bodyParser = require('body-parser')
-// routers all
+const passport = require('passport')
+ // routers all
 const authRoutes = require('./routers/auth')
 const analyticsRoutes = require('./routers/analytics')
 const categoryRoutes = require('./routers/category')
@@ -22,6 +23,10 @@ mongoose.connect(keys.mongoURI,
     )
 .then(()=> console.log('MongoDb connect'))
 .catch(error=> console.log(error))
+
+// passport.js 
+app.use(passport.initialize())
+require('./middleware/passport')(passport)
 
 // cors что бы можно била от всюда взвать сервер
 app.use(cors())
