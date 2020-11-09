@@ -34,6 +34,9 @@ app.use(cors())
 //morgan что бы увидеть просес запроса в коннсол
 app.use(morgan('dev'))
 
+// что бы файл статичиска нашли получать  доступ на примую с клента
+app.use('/uploads',express.static('uploads'))
+
 //body-parser
 app.use(bodyParser.urlencoded({extended: true}))
 app.use(bodyParser.json())

@@ -17,14 +17,25 @@ const storage = multer.diskStorage({
     }
 })
 
-// создаем условия для филтрация условия проверяем что грузитс
+// создаем условия для филтрация условия проверяем что грузится
 const fileFilter = (req, file, cb) =>{
-    if(file.mimetype === 'image/png') {
-     
+    // если все сопадаеть то true
+    if(file.mimetype === 'image/png' || file.mimetype === 'image/jpeg'){
+     cb(null, true)
+     // если не совпадаеть то false не пропускаем даний значения 
+    }else{
+        cb(null, false)
     }
+}
+
+// лимить на размер фото
+const limits = {
+ fileSize: 1024 * 1024 * 5
 }
 
 module.exports = multer({
     // передаем то storage в multer
-    storage: storage
+    storage: storage,
+    fileFilter: fileFilter,
+    limits: limits
 })

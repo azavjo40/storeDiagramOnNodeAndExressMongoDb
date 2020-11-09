@@ -51,13 +51,43 @@ errorHandler(res, e)
 
 
 module.exports.create = async function (req, res) {
+   const category = new Category({
+      name: req.body.name,
+      user: req.user.id,
+      // провераем если есть файл иначе добавлаем пустой строка
+      imageSrc: req.file ? req.file.path : ''
+    
+   })
    try{
-    // создаем 
+    // создаем сохраняем 
+    await category.save()
+    // если все хорошо то отвечаем
+    res.status(201).json(category)
    }catch(e){
    errorHandler(res, e)
    }
 }
 
 module.exports.update = async function (req, res) {
-    
+   // тут новий даний 
+   const update = {
+      name: req.body.name
+   }
+   // тут проверяем если есть то изменяем и показьваем путь до файл
+    if(req.file){
+       update.imageSrc = req.file.path
+    }
+   try{
+      // изменяем
+      const category = await Category.findOneAndUpdate(
+         // тут ищем по id
+         {_id: req.params.id},
+         // изменяем добавляем с помошью $set: update
+         {$set: update},
+         {new: true}
+      )
+      res.status(200).json(category)
+     }catch(e){
+     errorHandler(res, e)
+     }
 }
