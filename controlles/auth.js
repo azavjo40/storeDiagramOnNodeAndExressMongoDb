@@ -50,7 +50,7 @@ module.exports.register = async function (req, res) {
     }else{
         // если нет пользватель то создаем
         // сгенерировать пароль шифровать
-        const salt =bcrypt.genSaltSync(10)
+        const salt = bcrypt.genSaltSync(10)
         const password = req.body.password
         const user = new User({
             email: req.body.email,

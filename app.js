@@ -5,6 +5,7 @@ const morgan = require('morgan')
 const bodyParser = require('body-parser')
 const passport = require('passport')
  // routers all
+ const test = require('./routers/test')
 const authRoutes = require('./routers/auth')
 const analyticsRoutes = require('./routers/analytics')
 const categoryRoutes = require('./routers/category')
@@ -12,7 +13,7 @@ const orderRoutes = require('./routers/order')
 const positionRoutes = require('./routers/position')
 const keys = require('./config/keys')
 const app = express()
-
+//
 // база даних  mongoDB
 mongoose.connect(keys.mongoURI,
     {
@@ -42,7 +43,7 @@ app.use(bodyParser.urlencoded({extended: true}))
 app.use(bodyParser.json())
 
 
-
+app.use('/api', test)
 // router authRoutes
 app.use('/api/auth', authRoutes)
 

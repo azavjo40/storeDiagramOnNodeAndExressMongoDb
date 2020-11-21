@@ -1,13 +1,13 @@
 // riuter машрут 
 const express = require('express')
 //export log router експорт логику машрут 
-const controller = require('../controlles/auth')
+
 const router = express.Router()
 
  // locolhost:5000/api/auth/login
-router.post('/login',controller.login)
+router.get('/test',(req, res)=>{
+    res.send('Hello World!')
+})
 
-// locolhost:5000/api/auth/register
-router.post('/register',controller.register)
 
 module.exports = router 
